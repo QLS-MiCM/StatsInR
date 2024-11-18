@@ -26,12 +26,11 @@ output:
 
 There are several packages that allow for more sophisticated processing operations to be done faster. We will take a look at some functions from one of them. I encourage you to look into `plyr` and `tidyr` after this workshop.
 
-For this section we will use the`gapminder` package.
+For this section we will use data from the `gapminder` package.
 
 ```{r}
 library(dplyr)
-library(gapminder)
-
+gapminder <- readRDS("../data/gapminder.rds")
 dim(gapminder)
 ```
 
@@ -102,22 +101,22 @@ class(africa$continent)
 Using `.RDS` files
 
 ```{r}
-saveRDS(africa,file = "../objects/africa.RDS")
+saveRDS(africa,file = "../data/africa.RDS")
 ```
 
 ```{r}
-africa<-readRDS(file = "../objects/africa.RDS")
+africa<-readRDS(file = "../data/africa.RDS")
 ```
 
 Using `.RData` files
 
 ```{r}
 americas<-gapminder[gapminder$continent=="Americas",]
-save(africa,americas,file = "../objects/continents.RData")
+save(africa,americas,file = "../data/continents.RData")
 ```
 
 ```{r}
-load(file = "../objects/continents.RData",verbose = T)
+load(file = "../data/continents.RData",verbose = T)
 ```
 
 ## Manipulation with `dplyr`
@@ -154,7 +153,7 @@ gapminder %>%
 ### Using `select()`
 
 ```{r, echo=FALSE, out.width="80%",fig.align='center'}
-knitr::include_graphics("images/select.png")
+knitr::include_graphics("../images/select.png")
 ```
 
 To subset a data frame
@@ -218,7 +217,7 @@ gapminder %>%
 ### Using `group_by()`
 
 ```{r, echo=FALSE, out.width="80%",fig.align='center'}
-knitr::include_graphics("images/groupby.png")
+knitr::include_graphics("../images/groupby.png")
 ```
 
 It internally groups observations based on the specified variable(s)
@@ -234,7 +233,7 @@ str(gapminder %>% dplyr::group_by(continent))
 ### Using `summarize()`
 
 ```{r, echo=FALSE, out.width="80%",fig.align='center'}
-knitr::include_graphics("images/summarize.png")
+knitr::include_graphics("../images/summarize.png")
 ```
 
 ```{r}
