@@ -1,9 +1,3 @@
----
-editor_options: 
-  markdown: 
-    wrap: 72
----
-
 # QLS-MiCM Statistics in R Workshop
 
 This workshop provides a brief introduction to key concepts for
