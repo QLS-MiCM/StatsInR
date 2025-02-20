@@ -18,8 +18,7 @@ This workshop provides a brief introduction to key concepts for statistical anal
 
 ## Acknowledgements
 
-The material used in this workshop is adapted from past QLS-MiCM
-workshops and course notes from the following individuals:
+The material used in this workshop is adapted from past QLS-MiCM workshops and course notes from the following individuals:
 
 -   Gerardo Martinez (HGEN, McGill University)
 

@@ -172,7 +172,7 @@ Because of the assumptions we made earlier, our estimators have some
 very nice statistical properties. If our errors are uncorrelated and
 have mean zero and are homoscedasticity, then our estimates are the best
 linear unbiased estimator. Being unbiased means that the estimator of
-$\beta$, on average, the true value of the $\beta$. Being the "best"
+$\beta$, on average, is the true value of $\beta$. Being the "best"
 estimator means it has the lowest variance of all linear unbiased
 estimators. There are numerous websites and textbooks that discuss
 derivations of estimates in great detail.
@@ -391,7 +391,7 @@ measure of the *linear* relationship between variables. It's possible to
 have an explicit non-linear relationship (such as $y = x^2$) between $x$
 and $y$. In these cases, a linear model could have $R^2 = 0$ even though
 the variables are very clearly related. Adding extra parameters will
-artifically inflate the value of $R^2$ despite not adding any
+artificially inflate the value of $R^2$ despite not adding any
 explanatory value; the adjusted $R^2$ adjusts for this. Remember, the
 goal is to explain relationships your data, and not to meet some
 arbitrary threshold!
@@ -402,7 +402,7 @@ $$H_0: \beta_1 = \dots = \beta_p = 0 \text{ vs. } H_A:\text{At least one slope i
 If your F-statistic is non-significant, none of your predictors are
 useful! In this case it's a moot point as we only have one slope anyway.
 
-Because of the assumptions we made earlier, we can contruct confidence
+Because of the assumptions we made earlier, we can construct confidence
 intervals for our $\beta$ values. We can do this in R using `confint`,
 or construct them ourselves using the equation
 $\hat{\beta_{k}} \pm t_{1 - \alpha/2,n-p-1}s.e.(\hat{\beta_{k}})$, where
