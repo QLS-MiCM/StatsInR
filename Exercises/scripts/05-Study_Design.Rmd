@@ -4,7 +4,7 @@ author:
 - name: "Adrien Osakwe"
   affiliation: Workshop Lead
 
-date: '2024-18-14'
+date:  "`r format(Sys.Date(), '%B %d, %Y')`"
 output:
    rmdformats::html_clean:
     toc: false

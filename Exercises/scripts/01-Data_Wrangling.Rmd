@@ -1,11 +1,11 @@
 ---
-title: "Data Manipulation and Cleaning"
+title: "Data Wrangling"
 author: 
 - name: "Adrien Osakwe"
   affiliation: Workshop Lead
 - name: Larisa M. Soto
   affiliation: Original Material
-date: '2024-11-18'
+date:  "`r format(Sys.Date(), '%B %d, %Y')`"
 output:
    rmdformats::html_clean:
     toc: true
@@ -30,7 +30,7 @@ For this section we will use data from the `gapminder` package.
 
 ```{r}
 library(dplyr)
-gapminder <- readRDS("../data/gapminder.rds")
+library(gapminder)
 dim(gapminder)
 ```
 
@@ -42,81 +42,6 @@ View(gapminder)
 
 ```{r}
 summary(gapminder$lifeExp)
-```
-
-## Reading/writing data
-
-### Text files
-
-Writing tables to a file using `write.table()`
-
-```{r}
-aust <- gapminder[gapminder$country == "Australia",]
-write.table(aust,
-            file="../data/gapminder_australia.csv",
-            sep=",")
-```
-
-```{r}
-write.table(aust,
-            file="../data/gapminder_australia.csv",
-            sep=",",
-            quote=FALSE, 
-            row.names=FALSE)
-```
-
-```{r}
-write.table(aust,
-            file="../data/gapminder_australia.tsv",
-            sep="\t",
-            quote=FALSE, 
-            row.names=FALSE)
-```
-
-Other functions to write to a file
-
-```{r}
-africa<-gapminder[gapminder$continent=="Africa",]
-write.csv(gapminder[gapminder$continent=="Africa",],
-          file = "../data/gapminder_africa.csv",
-          row.names = FALSE)
-class(africa$continent)
-```
-
-Reading data from a file
-
-```{r}
-africa<-read.csv("../data/gapminder_africa.csv",sep = ",",header = T)
-class(africa$continent)
-head(africa)
-```
-
-```{r}
-africa<-read.table("../data/gapminder_africa.csv",sep = ",",header = T,stringsAsFactors = T)
-class(africa$continent)
-```
-
-### R objects
-
-Using `.RDS` files
-
-```{r}
-saveRDS(africa,file = "../data/africa.RDS")
-```
-
-```{r}
-africa<-readRDS(file = "../data/africa.RDS")
-```
-
-Using `.RData` files
-
-```{r}
-americas<-gapminder[gapminder$continent=="Americas",]
-save(africa,americas,file = "../data/continents.RData")
-```
-
-```{r}
-load(file = "../data/continents.RData",verbose = T)
 ```
 
 ## Manipulation with `dplyr`
@@ -144,17 +69,23 @@ library(tidyr)
 ### Introducing pipes
 
 ```{r}
+head(gapminder)
 gapminder %>%
   head()
 gapminder %>%
   tail()
 ```
 
-### Using `select()`
+```{r}
+x <- 100
+log10(sqrt(x))
 
-```{r, echo=FALSE, out.width="80%",fig.align='center'}
-knitr::include_graphics("../images/select.png")
+x %>%
+  sqrt() %>%
+  log10()
 ```
+
+### Using `select()`
 
 To subset a data frame
 
@@ -162,6 +93,8 @@ To subset a data frame
 dplyr::select(.data = gapminder, 
        year, country, gdpPercap) %>%
   head()
+
+head(gapminder[,c("year","country","gdpPercap")])
 ```
 
 To remove columns
@@ -216,10 +149,6 @@ gapminder %>%
 
 ### Using `group_by()`
 
-```{r, echo=FALSE, out.width="80%",fig.align='center'}
-knitr::include_graphics("../images/groupby.png")
-```
-
 It internally groups observations based on the specified variable(s)
 
 ```{r}
@@ -231,10 +160,6 @@ str(gapminder %>% dplyr::group_by(continent))
 ```
 
 ### Using `summarize()`
-
-```{r, echo=FALSE, out.width="80%",fig.align='center'}
-knitr::include_graphics("../images/summarize.png")
-```
 
 ```{r}
 gdp_c <- gapminder %>%
@@ -259,12 +184,24 @@ gapminder %>%
 ```{r}
 gapminder %>%
   dplyr::mutate(gdp_billion = gdpPercap*pop/10^9)
+
+
+
+```
+
+```{r}
+new_df <- gapminder %>% 
+  mutate(abc = ifelse(lifeExp >= 60, 'A','B')) %>%
+  group_by(abc) %>%
+  summarize(mean_abc_gdp = mean(gdpPercap))
+
+new_df
 ```
 
 ### Putting them all together
 
 ```{r}
-gdp_pop_ext <-gapminder %>%
+gdp_pop_ext <- gapminder %>%
                 dplyr::mutate(gdp_billion = gdpPercap*pop/10^9) %>%
                 dplyr::group_by(continent,year) %>%
                 dplyr::summarize(mean_gdpPercap = mean(gdpPercap),
@@ -279,15 +216,33 @@ gdp_pop_ext
 
 ## Hands-on advanced data manipulation
 
-1.  Write one command (it can span multiple lines) using pipes that will output a data frame that has only the columns `lifeExp`, `country` and `year` for the records before the year 2000 from African countries, but not for other Continents.\
-2.  Calculate the average life expectancy per country. Which country has the longest average life expectancy and which one the shortest average life expectancy?\
+1.  Write one command (it can span multiple lines) using pipes that will output a data frame that has only the columns `lifeExp`, `country` and `year` for the records before the year 2000 from African countries, but not for other Continents.
+
+    ```{r}
+
+    ```
+
+    \
+
+2.  Calculate the average life expectancy per country. Which country has the longest average life expectancy and which one the shortest average life expectancy?
+
+    ```{r}
+
+    ```
+
+    \
+
 3.  In the previous hands-on you discovered that all the entries from 2007 are actually from 2008. Write a command to edit the data accordingly using pipes. In the same command filter only the entries from 2008 to verify the change.
+
+    ```{r}
+
+    ```
 
 ## Data Cleaning
 
 First thing we could do is to drop any row that includes a missing entry. This can be done with `drop_na()` from the package `tidyr` (this package is loaded with `tidyverse`).
 
-```{r eval = FALSE}
+```{r}
 # Creating Missing data
 noisy_gap <- gapminder
 missing_idx <- sample(1:nrow(noisy_gap),
@@ -308,7 +263,7 @@ noisy_gap %>%
 
 It is often the case that removing rows with missing entries causes too much data loss. To this end, it is preferable to fill the entries with **imputed** values. A simple way of doing this is with the `fill()` from `tidyr`. By default, the entries will be filled with the same value as the next non-missing entry below. This means that the **order** of the entries is important. You can consider making different assumptions to decide how they should be ordered. In our case, we see that life-expectancy has a reasonable correlation with GDP per-capita so we can consider ordering the data by gdpPercap to fill in missing lifeExp entries.
 
-```{r eval = FALSE}
+```{r }
 # Checking correlation bet
 noisy_gap %>% 
   drop_na() %>%

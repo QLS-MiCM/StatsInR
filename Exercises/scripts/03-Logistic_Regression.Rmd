@@ -4,7 +4,7 @@ author:
 - name: "Adrien Osakwe"
   affiliation: Workshop Lead
 
-date: '2024-18-14'
+date:  "`r format(Sys.Date(), '%B %d, %Y')`"
 output:
    rmdformats::html_clean:
     toc: false
@@ -113,7 +113,7 @@ summary(mini_iris$Prob)
 ## Exercise
 
 Here we only made use of sepal length and width to distinguish setosa and virginica samples. However, virginica and versicolor cannot be distinguished by these features. Try using a combination of the features in the iris dataset to train a model that can distinguish virginica from versicolor. Remove setosa samples from the dataset first!
+
 ```{r}
 
 ```
-

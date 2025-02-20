@@ -5,7 +5,7 @@ author:
   affiliation: Workshop Lead
 - name: "Alex Diaz-Papkovich"
   affiliation: Original Material
-date: "November 18 2024"
+date:  "`r format(Sys.Date(), '%B %d, %Y')`"
 output:
    rmdformats::html_clean:
     toc: true
@@ -793,6 +793,10 @@ happens when we look at the residuals?
 
 ```{r Residual analysis of a poor model}
 plot(my_model_bad)
+```
+
+```{r}
+plot(exp(x_data),y_data)
 ```
 
 As we can see, the residual diagnostics look poor. There are clear

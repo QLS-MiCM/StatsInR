@@ -5,7 +5,7 @@ author:
   affiliation: Workshop Lead
 - name: "Alex Diaz-Papkovich"
   affiliation: Original Material
-date: "November 18 2024"
+date:  "`r format(Sys.Date(), '%B %d, %Y')`"
 output:
    rmdformats::html_clean:
     toc: true
@@ -34,6 +34,14 @@ sd2 <- 1 # Standard deviation 2
 # Sample x2 has a mean of mu2 and standard deviation sd2
 x1 <- rnorm(n, mu1, sd1)
 x2 <- rnorm(n, mu2, sd2)
+
+```
+
+```{r}
+x_df <- data.frame(Weight = c(x1,x2),
+                   Group = c(rep('H',n),rep('I',n)))
+
+t.test(x_df$Weight[x_df$Group =='H'],x_df$Weight[x_df$Group =='I'])
 ```
 
 There are many ways to look at our data. Two examples are: 1. Density plots 2. Box plots
@@ -64,7 +72,7 @@ boxplot(value ~ group, data = df)
 
 # The t.test() function has several parameters
 # If we put in two vectors, we can compare them
-t.test(x1, x2) 
+t.test(rep(x1,2), x2) 
 ```
 
 ```{r More t-test parameters}
@@ -98,6 +106,7 @@ As an exercise, extract the t-statistic and p-value you calculated above using `
 
 ```{r t-test exercise 1}
 #t_test_results$
+
 ```
 
 Now, try the t-test we did above, but try making the sample size much larger (say, n=1000 or n=10000). Do you notice a difference in the result of a t-test?
@@ -215,14 +224,27 @@ plot(results_aov)
 Load the base R data `PlantGroup` using the command `data("PlantGrowth")`. Visualize the groups using a boxplot and run an ANOVA on them. Extract the coefficients using `$`.
 
 ```{r ANOVA exercise 1}
-data("PlantGrowth") # Load the data (it may take a second)
+#data("PlantGrowth") # Load the data (it may take a second)
+
+# inspect the first few rows
+
+# create a box plot
+```
+
+```{r}
+#run the ANOVA analysis
+
+#check the outputs
+
+
+#generate a summary
 
 ```
 
 Run the `TukeyHSD()` command on the ANOVA you just created. Where are the differences in the model?
 
 ```{r ANOVA exercise 2}
-# TukeyHSD(...)
+
 ```
 
 For two- and three-way ANOVA models, there are good examples at: <https://www.datanovia.com/en/lessons/anova-in-r/>. They require the `datarium` package.
